@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>FinDuo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+
+    <div class="content" id="main-content"></div>
+    
+    
+    <nav class="navbar">
+      <div class="desktop-brand">
+        <div class="auth-logo" style="width:36px;height:36px;margin:0;border-radius:10px;">
+          <i class="ti ti-coins" style="font-size:20px;"></i>
+        </div>
+        <span>FinDuo</span>
+      </div>
+
+      <button class="nav-item active" id="nav-home" onclick="goTab('home')">
+        <i class="ti ti-home-2"></i>
+        <span class="nav-label" data-i18n="nav_home">Главная</span>
+      </button>
+      <button class="nav-item" id="nav-week" onclick="goTab('week')">
+        <i class="ti ti-chart-bar"></i>
+        <span class="nav-label" data-i18n="nav_week">Аналитика</span>
+      </button>
+      <button class="nav-item" id="nav-lessons" onclick="goTab('lessons')">
+        <i class="ti ti-book-2"></i>
+        <span class="nav-label" data-i18n="nav_lessons">Уроки</span>
+      </button>
+      <button class="nav-item" id="nav-profile" onclick="goTab('profile')">
+        <i class="ti ti-user-circle"></i>
+        <span class="nav-label" data-i18n="nav_profile">Профиль</span> 
+      </button>
+      
+      <div class="settings-actions" style="display: flex; gap: 10px; justify-content: center; margin-top: auto; padding-bottom: 20px;">
+        <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Тема" aria-label="Сменить тему">
+          <i class="ti ti-moon"></i>
+        </button>
+        <button class="icon-btn" id="langBtn" onclick="openLangModal()" title="Язык" aria-label="Сменить язык">
+          <i class="ti ti-language"></i>
+        </button>
+      </div>
+      
+      <button class="nav-add" onclick="goTab('add')" aria-label="Добавить">
+        <i class="ti ti-plus"></i>
+      </button>
+    </nav>
+    
+    <div id="toast-area" class="toast-wrap"></div>
+
+  </div> <div id="swipeHint" class="swipe-hint"></div>
+
+  <div id="lang-modal" style="display:none" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div style="font-weight:700;font-size:16px;margin-bottom:14px" id="lang-modal-title">Выберите язык</div>
+      <div id="lang-list"></div>
+      <button class="btn-secondary" style="margin-top:8px" onclick="closeLangModal()">
+        <span id="lang-cancel">Отмена</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="db.js"></script>
+  <script src="i18n.js"></script>
+  <script src="ui.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

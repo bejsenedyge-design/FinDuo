@@ -1,44 +1,61 @@
-FinTrack Pro
-A personal expense tracking application. Works as a static web application — no server needed.
-File Structure
+# FinTrack Pro
+
+Персональное приложение для трекинга расходов. Работает как статичное веб-приложение — никакого сервера не нужно.
+
+## Структура файлов
+
+```
 fintrack/
-├── index.html          ← Login / Registration page
-├── app.html            ← Main application (protected by authorization)
+├── index.html          ← Страница входа / регистрации
+├── app.html            ← Основное приложение (защищено авторизацией)
 ├── css/
-│   └── styles.css      ← All styles (dark/light theme, auth, animations)
+│   └── styles.css      ← Все стили (темная/светлая тема, auth, анимации)
 └── js/
-    ├── config.js       ← Constants: LANGS, CATEGORIES, ACHIEVEMENTS, LEVELS
-    ├── db.js           ← Database: users, sessions, state (localStorage)
-    ├── i18n.js         ← Helper functions: t(), fmoney(), fdate()
-    ├── ui.js           ← Page render functions (return HTML strings)
-    └── app.js          ← Application logic, handlers, AI report, navigation
+    ├── config.js       ← Константы: LANGS, CATEGORIES, ACHIEVEMENTS, LEVELS
+    ├── db.js           ← База данных: пользователи, сессии, состояние (localStorage)
+    ├── i18n.js         ← Вспомогательные функции: t(), fmoney(), fdate()
+    ├── ui.js           ← Рендер-функции страниц (возвращают HTML-строки)
+    └── app.js          ← Логика приложения, хендлеры, AI-отчёт, навигация
+```
 
-Script Loading Order
+## Порядок загрузки скриптов
+
+```
 config.js → db.js → i18n.js → ui.js → app.js
+```
 
-Each file depends on the previous ones. app.js runs render() at the end after everything is loaded.
-Key Features
-| Function | File | Description |
+Каждый файл зависит от предыдущих. `app.js` запускает `render()` в конце после загрузки всего.
+
+## Ключевые возможности
+
+| Функция | Файл | Описание |
 |---|---|---|
-| DB.register() / DB.login() | db.js | SHA-256 password hashing via Web Crypto API |
-| DB.getUserState() | db.js | Separate state for each user |
-| render() | app.js | Single rendering entry point — calls the required renderer |
-| getAiReport() | app.js | Response streaming via SSE from Anthropic API |
-| openLesson() | app.js | Modal window with lesson content + completion checkmark |
-| deleteExpense() | app.js | Deletion with fade-out animation |
-| filterHistory() | app.js | History filtering by category without re-rendering |
-| Swipe navigation | app.js | TouchEvent → tab switching |
-| _expenseRow() | ui.js | Common helper for expense row (with/without delete button) |
-Data Storage (localStorage)
-ft_users         → JSON array of users (username + passwordHash)
-ft_session       → Current session { username, displayName, loginAt }
-ft_state_<user>  → Specific user's state (expenses, coins, budget...)
+| `DB.register()` / `DB.login()` | db.js | SHA-256 хеширование пароля через Web Crypto API |
+| `DB.getUserState()` | db.js | Отдельное состояние для каждого пользователя |
+| `render()` | app.js | Единая точка отрисовки — вызывает нужный renderer |
+| `getAiReport()` | app.js | Стриминг ответа через SSE от Anthropic API |
+| `openLesson()` | app.js | Модальное окно с контентом урока + отметка выполнения |
+| `deleteExpense()` | app.js | Удаление с анимацией исчезновения |
+| `filterHistory()` | app.js | Фильтрация истории по категории без перерендера |
+| Свайп-навигация | app.js | TouchEvent → переключение вкладок |
+| `_expenseRow()` | ui.js | Общий helper для строки расхода (с/без кнопки удаления) |
 
-AI Report (Streaming)
- * Uses stream: true → SSE (text/event-stream)
- * Reads ReadableStream via getReader() + TextDecoder
- * Parses content_block_delta events → accumulates text
- * Shows real-time token counter
-Languages
-Supported: Russian (ru), English (en), Kazakh (kz).
-Switching via the 🌐 icon in the header. The language is saved in the user's state.
+## Хранение данных (localStorage)
+
+```
+ft_users         → JSON-массив пользователей (username + passwordHash)
+ft_session       → Текущая сессия { username, displayName, loginAt }
+ft_state_<user>  → Состояние конкретного пользователя (расходы, монеты, бюджет…)
+```
+
+## AI-отчёт (стриминг)
+
+- Использует `stream: true` → SSE (`text/event-stream`)
+- Читает `ReadableStream` через `getReader()` + `TextDecoder`
+- Парсит события `content_block_delta` → аккумулирует текст
+- Показывает счётчик токенов в реальном времени
+
+## Языки
+
+Поддерживаются: Русский (`ru`), English (`en`), Қазақша (`kz`).  
+Переключение через иконку 🌐 в шапке. Язык сохраняется в состоянии пользователя.
